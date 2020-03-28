@@ -26,22 +26,13 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.READ_CONTACTS)
+                Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
-
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
-
-            } else {
-
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.READ_CONTACTS},
-                        123);
-
-
-            }
-        } else {
-           init();
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    123);
+        }else{
+            init();
         }
     }
 
@@ -97,13 +88,13 @@ public class MainActivity extends AppCompatActivity
 
         try {
             MultipartUtility mu = new MultipartUtility(
-                    "","","UTF-8");
+                    "http://10.0.103.39:8080/Brad/Brad07","","UTF-8");
             mu.addFormField("prefix","android");
             mu.addFilePart("upload",uploadFile);
             mu.finish();
-            Log.v("leo","???");
+            Log.v("leo","Upload OK");
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.v("leo","Upload Failure");
         }
 
 
